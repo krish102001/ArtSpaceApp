@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Art Space App</string>
+    <string name="first_title">Peacock Art</string>
+    <string name="first_artist">Diana(2019)</string>
+    <string name="first_content_description">Peacock art</string>
+    <string name="second_title">Nature Art</string>
+    <string name="second_artist">photoshop(2019)</string>
+    <string name="second_content_description">Nature</string>
+    <string name="third_title">Flute Art</string>
+    <string name="third_artist">Krishna(2021)</string>
+    <string name="third_content_description">Flute</string>
 </resources>
