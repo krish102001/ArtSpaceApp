@@ -66,20 +66,49 @@ fun ArtSpaceApp(name: String, modifier: Modifier = Modifier) {
         var title by remember { mutableStateOf(R.string.first_title) }
         var artist by remember { mutableStateOf(R.string.first_artist) }
 
-        ArtImage(art = R.drawable.draw_a_peacock_colored_by_diana_huang_d4cdozz, description = R.string.first_content_description)
-        ArtDescriptor(title = R.string.first_title, artist = R.string.first_artist)
+        art = when(id) {
+            1 -> R.drawable.draw_a_peacock_colored_by_diana_huang_d4cdozz
+            2 -> R.drawable.flute
+            3 -> R.drawable.nature
+            else -> R.drawable.draw_a_peacock_colored_by_diana_huang_d4cdozz
+        }
+
+        description = when(id) {
+            1 -> R.string.first_content_description
+            2 -> R.string.second_content_description
+            3 -> R.string.third_content_description
+            else -> R.string.first_content_description
+        }
+
+        title = when(id) {
+            1 -> R.string.first_title
+            2 -> R.string.second_title
+            3 -> R.string.third_title
+            else -> R.string.first_title
+        }
+
+        artist = when(id) {
+            1 -> R.string.first_artist
+            2 -> R.string.second_artist
+            3 -> R.string.third_artist
+            else -> R.string.first_artist
+        }
+
+        ArtImage(art = art, description = description, modifier = Modifier.weight(1f))
+        ArtDescriptor(title = title, artist = artist, modifier = Modifier.weight(0.25f))
         Row (
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = modifier
                 .fillMaxWidth()
                 .padding(32.dp)
+                .weight(0.25f)
         ) {
-            Button(onClick = { goToPrevious(id, art, description, title, artist) },
+            Button(onClick = { id = if (id==1) 3 else id-1},
                 modifier = Modifier.size(width = 136.dp, height = 36.dp),
                 colors = ButtonDefaults.buttonColors(Color.DarkGray)) {
                 Text(text = "Previous")
             }
-            Button(onClick = { /*TODO*/ },
+            Button(onClick = { id = if (id==3) 1 else id+1},
                 modifier = Modifier.size(width = 136.dp, height = 36.dp),
                 colors = ButtonDefaults.buttonColors(Color.DarkGray)) {
                 Text("Next")
@@ -95,32 +124,26 @@ fun ArtImage(
     modifier: Modifier = Modifier
 ) {
     Image(painter = painterResource(id = art), contentDescription = stringResource(id = description),
-        modifier = Modifier
+        modifier = modifier
             .border(width = 24.dp, color = Color.White, shape = RectangleShape)
-            .padding(32.dp))
+            .padding(32.dp).fillMaxWidth()
+            .size(width = 160.dp, height = 320.dp))
 }
 @Composable
 fun ArtDescriptor(@StringRes title: Int, @StringRes artist: Int,modifier: Modifier = Modifier) {
     Column (
         horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
         modifier = modifier.fillMaxWidth()
-    ){
+     ){
         Text(text = stringResource(id = title), fontWeight = FontWeight.Bold)
         Text(text = stringResource(id = artist), fontSize = 12.sp, fontStyle = FontStyle.Italic, fontFamily = FontFamily.Cursive)
     }
 }
 
-fun goToPrevious(id: Int, art: Int, description: Int, title: Int, artist: Int) {
-
-}
-
-fun goToNext(id: Int) {
-
-}
-
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun ArtSpacePreview() {
     ArtSpaceAppTheme {
         ArtSpaceApp("Android")
     }
